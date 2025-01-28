@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Generator</title>
+</head>
+<body>
+    <h1>Email Response Generator</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="incoming_email">Incoming Email:</label><br>
+        <textarea id="incoming_email" name="incoming_email" rows="5" cols="40" required></textarea><br><br>
+        
+        <label for="mail_type">Mail Type:</label><br>
+        <select id="mail_type" name="mail_type">
+            <option value="Regular Mail">Regular Mail</option>
+            <option value="Cold Mail">Cold Mail</option>
+            <option value="Follow-Up Mail">Follow-Up Mail</option>
+            <option value="Waitlist Mail">Waitlist Mail</option>
+        </select><br><br>
+        
+        <label for="mail_tone">Mail Tone:</label><br>
+        <select id="mail_tone" name="mail_tone">
+            <option value="Professional/Corporate">Professional/Corporate</option>
+            <option value="Friendly/Conversational">Friendly/Conversational</option>
+            <option value="Urgent/Direct">Urgent/Direct</option>
+            <option value="Persuasive/Sales">Persuasive/Sales</option>
+        </select><br><br>
+        
+        <button type="submit">Generate Email</button>
+    </form>
+</body>
+</html>

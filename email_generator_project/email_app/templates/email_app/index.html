@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Response Generator</title>
+</head>
+<body>
+    <h1>Email Response Generator</h1>
+    <form id="emailForm">
+        <label for="incoming_email">Incoming Email:</label><br>
+        <textarea id="incoming_email" name="incoming_email" rows="10" cols="50"></textarea><br>
+        
+        <label for="email_type">Type:</label><br>
+        <select id="email_type" name="email_type">
+            <option value="Regular Mail">Regular Mail</option>
+            <option value="Cold Mail">Cold Mail</option>
+            <option value="Follow-Up Mail">Follow-Up Mail</option>
+            <option value="Waitlist Mail">Waitlist Mail</option>
+        </select><br>
+        
+        <label for="tone">Tone:</label><br>
+        <select id="tone" name="tone">
+            <option value="Professional/Corporate">Professional/Corporate</option>
+            <option value="Friendly/Conversational">Friendly/Conversational</option>
+            <option value="Urgent/Direct">Urgent/Direct</option>
+            <option value="Persuasive/Sales">Persuasive/Sales</option>
+        </select><br><br>
+        
+        <button type="button" onclick="generateEmail()">Generate Email</button>
+    </form>
+
+    <h2>Generated Email</h2>
+    <p><strong>Subject:</strong> <span id="generated_subject"></span></p>
+    <p><strong>Body:</strong></p>
+    <p id="generated_body"></p>
+
+    <script>
+        function generateEmail() {
+            const formData = new FormData(document.getElementById("emailForm"));
+            fetch("/generate_email/", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    document.getElementById("generated_subject").innerText = data.subject;
+                    document.getElementById("generated_body").innerText = data.body;
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
